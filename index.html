@@ -451,13 +451,56 @@ html[data-theme="light"] .tag.hot{color:var(--o-deep)}
 .kpi li:last-child{border-bottom:0}
 .kpi li span{color:var(--faint)}
 .kpi li b{font-family:"JetBrains Mono",monospace;font-weight:600;color:var(--ink);font-size:.84rem;text-align:right}
-.shot{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface-3);position:relative}
-.shot img{filter:brightness(var(--img-dim)) saturate(.98);transition:transform .6s cubic-bezier(.2,.7,.2,1)}
-.shot:hover img{transform:scale(1.03)}
-.shot figcaption{padding:10px 14px;font-size:.76rem;color:var(--faint);border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;align-items:center}
-.shot figcaption a{color:var(--o-lift);font-weight:500;white-space:nowrap}
-html[data-theme="light"] .shot figcaption a{color:var(--o-deep)}
 .chips{display:flex;flex-wrap:wrap;gap:7px}
+
+/* --- bandeau complémentaire d'une étude de cas : schéma + galerie --- */
+.case-extra{padding:clamp(24px,3.5vw,38px) clamp(22px,4vw,44px) clamp(28px,4vw,42px);border-top:1px solid var(--line)}
+.extra-h{
+  font-family:"JetBrains Mono",monospace;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint);font-weight:500;margin:0 0 18px;
+}
+.extra-h + * + .extra-h,.arch + .extra-h{margin-top:clamp(28px,4vw,40px)}
+
+.arch{display:flex;flex-direction:column;gap:0}
+.arch-node{
+  border:1px solid var(--line);border-radius:13px;background:var(--surface-3);
+  padding:15px 18px;text-align:center;
+}
+.arch-node b{display:block;font-size:.95rem;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+.arch-node span{display:block;margin-top:5px;font-size:.83rem;color:var(--muted);line-height:1.5}
+.arch-node.top{
+  background:linear-gradient(135deg,var(--o-lift),var(--o) 60%,var(--o-deep));border-color:transparent;
+}
+.arch-node.top b,.arch-node.top span{color:#fff}
+.arch-node.top span{opacity:.9}
+.arch-node.accent{border-color:rgba(241,110,0,.35);background:rgba(241,110,0,.07)}
+.arch-arrow{height:26px;display:grid;place-items:center;position:relative}
+.arch-arrow::before{content:"";width:1px;height:100%;background:linear-gradient(var(--o),rgba(241,110,0,.25))}
+.arch-arrow::after{
+  content:"";position:absolute;bottom:0;width:0;height:0;
+  border-left:4px solid transparent;border-right:4px solid transparent;border-top:6px solid var(--o);
+}
+.arch-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:900px){.arch-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:540px){.arch-grid{grid-template-columns:1fr}}
+.arch-foot{margin-top:18px;font-size:.86rem;color:var(--muted);line-height:1.6}
+.arch-foot b{color:var(--ink-2);font-weight:600}
+
+.gal{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:820px){.gal{grid-template-columns:1fr}}
+.gal figure{
+  margin:0;border:1px solid var(--line);border-radius:13px;overflow:hidden;background:var(--surface-3);
+  display:flex;flex-direction:column;
+}
+.gal img{
+  width:100%;filter:brightness(var(--img-dim));transition:transform .6s cubic-bezier(.2,.7,.2,1);
+  border-bottom:1px solid var(--line);
+}
+.gal figure:hover img{transform:scale(1.04)}
+.gal figcaption{padding:11px 14px;font-size:.79rem;color:var(--muted);line-height:1.45}
+.gal-note{margin-top:14px;font-size:.82rem;color:var(--faint);line-height:1.6}
+.gal-note a{color:var(--o-lift);font-weight:500}
+html[data-theme="light"] .gal-note a{color:var(--o-deep)}
 
 /* ============ grille projets ============ */
 .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
@@ -1096,14 +1139,6 @@ html{scroll-behavior:smooth}
           </div>
         </div>
         <aside class="case-side">
-          <figure class="shot">
-            <img src="/assets/bms-hub.jpg" width="600" height="343" loading="lazy"
-                 alt="Page d'accueil publique de la plateforme BMS Hub : titre « La référence BMS Cloud Avenue » sur fond sombre" />
-            <figcaption>
-              <span>Page d'accueil publique</span>
-              <a href="https://bms-hub.vercel.app" target="_blank" rel="noopener">Voir le site ↗</a>
-            </figcaption>
-          </figure>
           <ul class="kpi">
             <li><span>Spécification</span><b>550+ lignes</b></li>
             <li><span>Code dirigé</span><b>≈10 650 lignes</b></li>
@@ -1118,6 +1153,92 @@ html{scroll-behavior:smooth}
             <span class="tag">Release management</span><span class="tag">Gestion des secrets</span>
           </div>
         </aside>
+      </div>
+
+      <!-- architecture : dessinée en HTML, donc nette et lisible dans les deux thèmes -->
+      <div class="case-extra">
+        <h4 class="extra-h">Architecture de la plateforme, telle que je l'ai spécifiée</h4>
+        <div class="arch">
+          <div class="arch-node top">
+            <b>Utilisateur</b>
+            <span>Authentification restreinte aux adresses professionnelles du groupe</span>
+          </div>
+          <div class="arch-arrow" aria-hidden="true"></div>
+          <div class="arch-node mid">
+            <b>Front-end</b>
+            <span>Next.js, React et TypeScript, déployés en continu sur une plateforme serverless</span>
+          </div>
+          <div class="arch-arrow" aria-hidden="true"></div>
+          <div class="arch-grid">
+            <div class="arch-node">
+              <b>Base de données</b>
+              <span>PostgreSQL managé : authentification et socle documentaire indexé</span>
+            </div>
+            <div class="arch-node accent">
+              <b>Chatbot RAG</b>
+              <span>Découpage en segments d'environ 500 mots, recherche plein texte, injection des
+              quatre documents les plus pertinents, réponse en streaming</span>
+            </div>
+            <div class="arch-node">
+              <b>Agrégateur de veille</b>
+              <span>Sept flux, scoring de pertinence de 0 à 100</span>
+            </div>
+            <div class="arch-node">
+              <b>Socle documentaire</b>
+              <span>Huit documents officiels hétérogènes consolidés en un modèle de données typé</span>
+            </div>
+          </div>
+          <p class="arch-foot">
+            <b>Ce que j'ai piloté :</b> un PM non développeur qui dirige une IA de développement.
+            Spécification exécutable de plus de 550 lignes, ≈10 650 lignes produites sur 56 fichiers,
+            62 commits, quatre versions en neuf jours, coût d'exploitation quasi nul.
+          </p>
+        </div>
+
+        <h4 class="extra-h">La façade publique, ce que voit un prospect</h4>
+        <div class="gal">
+          <figure>
+            <img src="/assets/hub-hero.jpg" width="1000" height="557" loading="lazy"
+                 alt="Page d'accueil de BMS Hub : titre « La référence BMS Cloud Avenue » en blanc et orange sur fond sombre, avec deux boutons d'accès" />
+            <figcaption>Page d'accueil : le point d'entrée unique qui remplace huit documents dispersés.</figcaption>
+          </figure>
+          <figure>
+            <img src="/assets/hub-piliers.jpg" width="1000" height="628" loading="lazy"
+                 alt="Section « Tout ce qu'il faut pour maîtriser le BMS » présentant quatre cartes : Référence technique, Assistant IA expert, Actualités live, Formation complète" />
+            <figcaption>Les quatre besoins couverts : consolider, assister, veiller, former.</figcaption>
+          </figure>
+          <figure>
+            <img src="/assets/hub-domaines.jpg" width="1000" height="378" loading="lazy"
+                 alt="Section « Explorez par domaine d'expertise » présentant six cartes : process de commande, stockage, réseau, sécurité, GPU et intelligence artificielle, benchmark concurrentiel" />
+            <figcaption>L'entrée par domaine, calquée sur les questions réelles des avant-ventes.</figcaption>
+          </figure>
+        </div>
+
+        <h4 class="extra-h">Le produit connecté, ce que reçoit un utilisateur du groupe</h4>
+        <div class="gal">
+          <figure>
+            <img src="/assets/hub-dashboard.jpg" width="1100" height="943" loading="lazy"
+                 alt="Tableau de bord de BMS Hub après connexion : message de bienvenue, compteurs de configurations et de modules, cartes de navigation, dernières actualités et progression de formation" />
+            <figcaption>Le tableau de bord : progression de formation, favoris et historique de consultation.</figcaption>
+          </figure>
+          <figure>
+            <img src="/assets/hub-formation.jpg" width="1100" height="901" loading="lazy"
+                 alt="Parcours de formation de BMS Hub : quinze modules classés par niveau débutant, intermédiaire et avancé, chacun avec une durée et un quiz" />
+            <figcaption>Le parcours de formation : quinze modules gradués, chacun avec sa durée et son quiz.</figcaption>
+          </figure>
+          <figure>
+            <img src="/assets/hub-changelog.jpg" width="1100" height="718" loading="lazy"
+                 alt="Journal des versions de BMS Hub : v2.0 « Refonte Navigation & UX » du 11 mars 2026 avec sa liste de nouveautés et améliorations, puis v1.3" />
+            <figcaption>Le journal des versions : quatre releases documentées, la trace d'une démarche produit.</figcaption>
+          </figure>
+        </div>
+
+        <p class="gal-note">
+          Captures de la plateforme, façade publique et vues connectées.
+          <a href="https://bms-hub.vercel.app" target="_blank" rel="noopener">Voir le site en ligne ↗</a>
+          Le détail des modules et de l'assistant conversationnel est réservé aux comptes du groupe ; les
+          grilles tarifaires et les spécifications internes ne sont pas reproduites ici.
+        </p>
       </div>
     </article>
 
