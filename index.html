@@ -10,13 +10,10 @@
 <link rel="canonical" href="https://book-alexis-fayan.vercel.app/" />
 
 <script>
-/* Amorcage du theme, synchrone et avant tout style : le clair est le defaut,
-   le sombre n'est pose que si l'utilisateur l'a explicitement choisi.
-   La classe "js" conditionne les animations d'apparition : sans JavaScript,
-   tout le contenu reste visible. */
+/* La classe "js" conditionne les animations d'apparition. Elle est posee avant
+   le premier rendu : sans JavaScript, tout le contenu reste visible. */
 (function(){
   var r = document.documentElement;
-  try { if (localStorage.getItem("af-theme") === "dark") r.setAttribute("data-theme","dark"); } catch(e){}
   r.className = r.className ? r.className + " js" : "js";
 })();
 </script>
@@ -25,7 +22,7 @@
 <meta property="og:locale" content="fr_FR" />
 <meta property="og:site_name" content="Book · Alexis Fayan" />
 <meta property="og:title" content="Alexis Fayan · Project Manager IA &amp; Cloud" />
-<meta property="og:description" content="Je rends l'infrastructure claire et l'IA utile. Book 2026 : 3 réalisations phares, 9 projets d'appui, 16 mois chez Orange Business · Cloud Avenue." />
+<meta property="og:description" content="Je rends l'infrastructure claire et l'IA utile. Book 2026&nbsp;: 3 réalisations phares, 9 projets d'appui, 16 mois chez Orange Business · Cloud Avenue." />
 <meta property="og:url" content="https://book-alexis-fayan.vercel.app/" />
 <meta property="og:image" content="https://book-alexis-fayan.vercel.app/assets/og.jpg" />
 <meta property="og:image:width" content="1200" />
@@ -79,9 +76,9 @@
   --muted:#58616F;      /*  5,18:1 */
   --faint:#5C6472;      /*  4,93:1 */
 
-  /* orange */
-  --o:#F16E00;          /* marque, decor seul : 2,67:1 sur papier clair */
-  --o-text:#A84C00;     /* seul orange autorise en texte clair : 4,70:1 */
+  /* orange. L'orange de marque #F16E00 ne fait que 2,67:1 sur ce papier :
+     il est inutilisable ici, toutes les declinaisons ci-dessous en derivent. */
+  --o-text:#A84C00;     /* orange en texte : 4,70:1 */
   --o-graph:#BD5600;    /* graphisme porteur de sens (jauge, puce signifiante) */
   --o-btn:#BD5600;      /* fond de bouton, blanc dessus : 4,67:1 */
   --o-btn-hover:#A44B00;
@@ -110,36 +107,6 @@
   --radius-lg:20px;
 }
 
-/* ---------- 2. Jetons : thema sombre ---------- */
-html[data-theme="dark"]{
-  --bg:#0A0E16;
-  --bg-2:#0D1220;
-  --surface:#141A27;
-  --surface-2:#111725;
-  --surface-3:#1A2230;
-  --surface-hover:#1E2637;
-
-  --ink:#EEF2F8;        /* 14,21:1 */
-  --ink-2:#C6CFDE;      /* 10,17:1 */
-  --muted:#97A2B6;      /*  6,20:1 */
-  --faint:#858EA6;      /*  4,88:1 */
-
-  --o:#F16E00;
-  --o-text:#FF8A2B;     /* 6,78:1 */
-  --o-graph:#FF8A2B;
-  --o-btn:#BD5600;
-  --o-btn-hover:#D06000;
-  --tint:#20150C;
-  --tint-line:#6B4520;
-
-  --line:#39434F;       /* 1,59 a 1,92:1 */
-  --line-2:#454F61;     /* 1,93 a 2,34:1 */
-  --line-int:#6E7690;   /* 3,54:1 minimum */
-  --focus:#FF8A2B;      /* 6,78:1 minimum */
-
-  --shadow-1:0 1px 2px rgba(0,0,0,.45);
-  --shadow-2:0 20px 45px -24px rgba(0,0,0,.7);
-}
 
 /* ---------- 3. Socle ---------- */
 *,*::before,*::after{box-sizing:border-box}
@@ -200,7 +167,7 @@ section{position:relative}
    comme un tiret cadratin, ce que ce book s'interdit. */
 .tick{
   display:inline-block;width:6px;height:6px;border-radius:50%;
-  background:var(--o);flex-shrink:0;vertical-align:middle;
+  background:var(--o-graph);flex-shrink:0;vertical-align:middle;
 }
 .tick--soft{background:var(--line-int)}
 /* separateur de la marque : filet vertical, jamais horizontal */
@@ -310,7 +277,7 @@ header#nav.stuck{
   font-size:clamp(1rem,2.5vw,1.22rem);color:var(--ink-2);font-weight:500;
 }
 .hero .role .org{color:var(--muted);font-weight:400}
-.hero .role .sep{width:5px;height:5px;border-radius:50%;background:var(--o);flex-shrink:0}
+.hero .role .sep{width:5px;height:5px;border-radius:50%;background:var(--o-graph);flex-shrink:0}
 .hero .claim{
   font-family:"Fraunces",Georgia,serif;font-optical-sizing:auto;font-variation-settings:"opsz" 40;
   font-style:italic;font-weight:500;
@@ -468,7 +435,7 @@ header#nav.stuck{
 .arch-node{border:1px solid var(--line);border-radius:13px;background:var(--surface-3);padding:15px 18px;text-align:center}
 .arch-node b{display:block;font-size:.95rem;font-weight:600;color:var(--ink)}
 .arch-node span{display:block;margin-top:5px;font-size:.84rem;color:var(--muted);line-height:1.5}
-.arch-node.top{background:linear-gradient(135deg,#FF8A2B,#F16E00 55%,#A84C00);border-color:transparent}
+.arch-node.top{background:linear-gradient(135deg,#B04E00,#A84C00 55%,#8E3F00);border-color:transparent}
 .arch-node.top b{color:#fff}
 .arch-node.top span{color:#FFF3E8}
 .arch-node.mid{border-left:3px solid var(--o-text)}
@@ -608,11 +575,11 @@ html.js .rv.in{opacity:1;transform:none}
 
 /* ---------- 24. Impression ---------- */
 @media print{
-  html,html[data-theme="dark"]{
+  html{
     --bg:#fff;--bg-2:#fff;--surface:#fff;--surface-2:#fff;--surface-3:#fff;--surface-hover:#fff;
     --ink:#000;--ink-2:#1a1a1a;--muted:#2f2f2f;--faint:#4a4a4a;
     --line:#bbb;--line-2:#999;--line-int:#888;
-    --o:#A84C00;--o-text:#A84C00;--o-graph:#A84C00;--o-btn:#fff;
+    --o-text:#A84C00;--o-graph:#A84C00;--o-btn:#fff;
     --tint:#fff;--tint-line:#bbb;
     --shadow-1:none;--shadow-2:none;
   }
@@ -665,9 +632,6 @@ html.js .rv.in{opacity:1;transform:none}
       <a class="icon-btn" href="https://www.linkedin.com/in/alexis-fayan/" target="_blank" rel="noopener" aria-label="Profil LinkedIn d'Alexis Fayan">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C20.3 8.65 21 11 21 14.1V21h-4v-6.1c0-1.45-.03-3.3-2-3.3-2 0-2.3 1.56-2.3 3.2V21H9z"/></svg>
       </a>
-      <button class="icon-btn" id="theme" aria-pressed="false" aria-label="Passer au thème sombre" title="Thème">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3v1.5M12 19.5V21M3 12h1.5M19.5 12H21M5.6 5.6l1.1 1.1M17.3 17.3l1.1 1.1M18.4 5.6l-1.1 1.1M6.7 17.3l-1.1 1.1"/><circle cx="12" cy="12" r="3.8"/></svg>
-      </button>
       <button class="icon-btn" id="burger" aria-label="Ouvrir le menu" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
@@ -833,7 +797,7 @@ html.js .rv.in{opacity:1;transform:none}
           animation de la formation avant-vente. En parallèle, un périmètre IA&nbsp;: plateforme de
           référence en architecture RAG, chatbot de veille stratégique, coordination de chantiers
           d'orchestration IA sous mandat sponsor. Position d'interface entre le marketing, les équipes
-          techniques internationales, l'écosystème formation et avant-vente, et la direction.
+          techniques internationales, l'écosystème formation-avant-vente et la direction.
         </p>
         <div class="tl-tags">
           <span class="tag hot">Product ownership</span><span class="tag hot">IA générative &amp; RAG</span>
@@ -919,7 +883,7 @@ html.js .rv.in{opacity:1;transform:none}
       <p class="sec-sub">L'offre était techniquement solide, mais sa connaissance restait dispersée et son
       parcours client, non documenté. J'ai travaillé sur 3 angles pour y remédier&nbsp;: la formation, un
       produit, et la ténacité au quotidien face aux blocages. Les 3 réalisations qui suivent sont liées entre
-      elles&nbsp;: la maîtrise du sujet a nourri la formation, qui a nourri la vente.</p>
+      elles.</p>
     </div>
 
     <!-- ---------------------- CAS 01 ---------------------- -->
@@ -990,7 +954,7 @@ html.js .rv.in{opacity:1;transform:none}
               scénario supplémentaire sur un dossier client industriel jusqu'alors classé sans issue. Ce
               dossier comportait déjà 2 scénarios chiffrés à 7 chiffres sur 5 ans. Il m'identifie comme le
               référent produit à solliciter.</li>
-              <li>Une formation interne qui débouche, dès le lendemain, sur une opportunité commerciale
+              <li>Une formation interne qui débouche aussitôt sur une opportunité commerciale
               chiffrée&nbsp;: ici, <b>la clarté a directement aidé à vendre</b>.</li>
             </ul>
           </div>
@@ -1087,8 +1051,8 @@ html.js .rv.in{opacity:1;transform:none}
               <li>BMS Hub m'a servi à <b>faire la preuve de mes compétences</b>&nbsp;: il m'a obtenu un
               sponsor senior, un binôme technique et un mandat élargi, qui ont débouché sur 2 chantiers IA.</li>
               <li>Le rythme obtenu aurait été difficile à tenir en développement classique&nbsp;:
-              <b>4 versions en 9 jours</b>, du 2 au 11 mars 2026, pour 62 commits et un dépôt de 56 fichiers
-              au total.</li>
+              <b>4 versions en 9 jours</b>, du 2 au 11 mars 2026, soit 47 des 62 commits du dépôt. Les
+              62 commits couvrent le 27 février au 13 avril 2026, sur 56 fichiers de code.</li>
             </ul>
           </div>
         </div>
@@ -1096,7 +1060,7 @@ html.js .rv.in{opacity:1;transform:none}
           <ul class="kpi">
             <li><span>Spécification</span><b>551 lignes</b></li>
             <li><span>Code dirigé</span><b>≈10&nbsp;650 lignes</b></li>
-            <li><span>Commits</span><b>62</b></li>
+            <li><span>Commits au total</span><b>62</b></li>
             <li><span>Versions en 9 jours</span><b>4</b></li>
             <li><span>Modules · quiz</span><b>15 · 76</b></li>
             <li><span>Coût d'exploitation</span><b>≈0&nbsp;€</b></li>
@@ -1143,8 +1107,8 @@ html.js .rv.in{opacity:1;transform:none}
           </div>
           <p class="arch-foot">
             <b>Un PM non développeur qui a dirigé une IA de développement.</b> Spécification exécutable de
-            551 lignes, environ 10&nbsp;650 lignes produites sur 56 fichiers, 62 commits, 4 versions en
-            9 jours, coût d'exploitation quasi nul.
+            551 lignes, environ 10&nbsp;650 lignes produites sur 56 fichiers de code, 62 commits du
+            27 février au 13 avril 2026, 4 versions livrées en 9 jours, coût d'exploitation quasi nul.
           </p>
         </div>
 
@@ -1152,18 +1116,18 @@ html.js .rv.in{opacity:1;transform:none}
         <div class="gal">
           <figure>
             <img src="/assets/hub-hero.jpg" width="1000" height="557" loading="lazy"
-                 alt="Page d'accueil de BMS Hub : titre « La référence BMS Cloud Avenue » en blanc et orange sur fond sombre, avec 2 boutons d'accès" />
+                 alt="Page d'accueil de BMS Hub&nbsp;: titre «&nbsp;La référence BMS Cloud Avenue&nbsp;» en blanc et orange sur fond sombre, avec 2 boutons d'accès" />
             <figcaption>Page d'accueil&nbsp;: le point d'entrée unique de la plateforme.</figcaption>
           </figure>
           <figure>
             <img src="/assets/hub-piliers.jpg" width="1000" height="628" loading="lazy"
-                 alt="Section « Tout ce qu'il faut pour maîtriser le BMS » présentant 4 cartes : Référence technique, Assistant IA expert, Actualités live, Formation complète" />
+                 alt="Section «&nbsp;Tout ce qu'il faut pour maîtriser le BMS&nbsp;» présentant 4 cartes&nbsp;: Référence technique, Assistant IA expert, Actualités live, Formation complète" />
             <figcaption>Les 4 besoins couverts&nbsp;: consolider l'information, aider au quotidien, suivre
             l'actualité et former les équipes.</figcaption>
           </figure>
           <figure>
             <img src="/assets/hub-domaines.jpg" width="1000" height="378" loading="lazy"
-                 alt="Section « Explorez par domaine d'expertise » présentant 6 cartes : process de commande, stockage, réseau, sécurité, GPU et intelligence artificielle, benchmark concurrentiel" />
+                 alt="Section «&nbsp;Explorez par domaine d'expertise&nbsp;» présentant 6 cartes&nbsp;: process de commande, stockage, réseau, sécurité, GPU et intelligence artificielle, benchmark concurrentiel" />
             <figcaption>L'entrée par domaine, calquée sur les questions réelles des avant-ventes.</figcaption>
           </figure>
         </div>
@@ -1172,19 +1136,19 @@ html.js .rv.in{opacity:1;transform:none}
         <div class="gal">
           <figure>
             <img src="/assets/hub-dashboard.jpg" width="1100" height="943" loading="lazy"
-                 alt="Tableau de bord de BMS Hub après connexion : message de bienvenue, compteurs de configurations et de modules, cartes de navigation, dernières actualités et progression de formation" />
+                 alt="Tableau de bord de BMS Hub après connexion&nbsp;: message de bienvenue, compteurs de configurations et de modules, cartes de navigation, dernières actualités et progression de formation" />
             <figcaption>Le tableau de bord&nbsp;: progression de formation, favoris et historique de
             consultation.</figcaption>
           </figure>
           <figure>
             <img src="/assets/hub-formation.jpg" width="1100" height="901" loading="lazy"
-                 alt="Parcours de formation de BMS Hub : 15 modules classés par niveau débutant, intermédiaire et avancé, chacun avec une durée et un quiz" />
+                 alt="Parcours de formation de BMS Hub&nbsp;: 15 modules classés par niveau débutant, intermédiaire et avancé, chacun avec une durée et un quiz" />
             <figcaption>Le parcours de formation&nbsp;: 15 modules gradués, chacun avec sa durée et son
             quiz.</figcaption>
           </figure>
           <figure>
             <img src="/assets/hub-changelog.jpg" width="1100" height="718" loading="lazy"
-                 alt="Journal des versions de BMS Hub : v2.0 « Refonte Navigation & UX » du 11 mars 2026 avec sa liste de nouveautés et améliorations, puis v1.3" />
+                 alt="Journal des versions de BMS Hub&nbsp;: v2.0 «&nbsp;Refonte Navigation &amp; UX&nbsp;» du 11 mars 2026 avec sa liste de nouveautés et améliorations, puis v1.3" />
             <figcaption>Le journal des versions&nbsp;: 4 versions documentées, qui montrent la progression du
             produit.</figcaption>
           </figure>
@@ -1446,7 +1410,7 @@ html.js .rv.in{opacity:1;transform:none}
         résolue en 48 heures. Cycle de formation complet sur 8 mois. Rituels institués. Gestion des versions
         et des livraisons sur un dépôt Git.</p>
         <p class="axis"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 8v8M8 12h8"/><circle cx="12" cy="12" r="9"/></svg>
-        À construire&nbsp;: formaliser la méthode (PRINCE2 fin juillet 2026) et gérer un budget en propre.</p>
+        À construire&nbsp;: gérer un budget en propre. PRINCE2 Foundation suivi du 27 au 29 juillet 2026.</p>
       </article>
 
       <article class="sk">
@@ -1462,7 +1426,7 @@ html.js .rv.in{opacity:1;transform:none}
       <article class="sk">
         <div class="sk-head"><h3>Promouvoir et vendre des solutions</h3><span class="lv">3,5<small>&thinsp;/&thinsp;5</small></span></div>
         <div class="bar" style="--lv:70%"><i></i></div>
-        <p class="why">Une formation qui a permis à mon offre d'entrer, dès le lendemain, comme scénario
+        <p class="why">Une formation qui a permis à mon offre d'entrer, dans la foulée, comme scénario
         supplémentaire dans un dossier client où 2 scénarios étaient déjà chiffrés à 7 chiffres sur 5 ans.
         Une vente interne réussie jusqu'au sponsor. Un mix marketing complet et une recommandation de
         positionnement sourcée.</p>
@@ -1738,8 +1702,8 @@ html.js .rv.in{opacity:1;transform:none}
       <p class="looking">
         Mon contrat d'alternance s'achève le 25 septembre 2026. Je cherche des organisations de grande taille,
         techniques et internationales, où des offres ou des systèmes complexes doivent être rendus
-        compréhensibles, adoptés en interne, puis reliés au terrain commercial. J'y arrive avec PRINCE2 en
-        poche, l'habitude de tout dater et tout sourcer, et 16 mois de mission pour appuyer la méthode.
+        compréhensibles, adoptés en interne, puis reliés au terrain commercial. J'y arrive avec PRINCE2 Foundation
+        suivi fin juillet 2026, l'habitude de tout dater et tout sourcer, et 16 mois de mission pour appuyer la méthode.
       </p>
       <dl class="seek">
         <div><dt>Postes visés</dt><dd>Project Manager IA, Product Owner, Chef de projet numérique ou cloud</dd></div>
@@ -1789,36 +1753,9 @@ html.js .rv.in{opacity:1;transform:none}
 (function(){
   "use strict";
 
-  var root    = document.documentElement;
   var reduce  = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var $       = function(id){ return document.getElementById(id); };
   var each    = function(list, fn){ Array.prototype.forEach.call(list, fn); };
-
-  /* ---------- theme ----------
-     Le clair est le defaut. L'attribut data-theme n'est pose que pour le sombre,
-     par le script synchrone place en tete de document ; ici on ne gere que la bascule. */
-  var THEME_COLOR = { light:"#F5F1E9", dark:"#0A0E16" };
-  var themeBtn = $("theme");
-  var themeMeta = document.querySelector('meta[name="theme-color"]');
-
-  function syncTheme(){
-    var dark = root.getAttribute("data-theme") === "dark";
-    if (themeMeta) themeMeta.setAttribute("content", dark ? THEME_COLOR.dark : THEME_COLOR.light);
-    if (themeBtn){
-      themeBtn.setAttribute("aria-pressed", dark ? "true" : "false");
-      themeBtn.setAttribute("aria-label", dark ? "Passer au thème clair" : "Passer au thème sombre");
-    }
-  }
-  syncTheme();
-  if (themeBtn){
-    themeBtn.addEventListener("click", function(){
-      var goingDark = root.getAttribute("data-theme") !== "dark";
-      if (goingDark) root.setAttribute("data-theme", "dark");
-      else root.removeAttribute("data-theme");
-      try { localStorage.setItem("af-theme", goingDark ? "dark" : "light"); } catch(e){}
-      syncTheme();
-    });
-  }
 
   /* ---------- barre de progression et entete ancree ---------- */
   var bar = $("progress"), nav = $("nav"), ticking = false;

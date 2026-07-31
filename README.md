@@ -25,14 +25,14 @@ JavaScript sont dans la page ; les seules ressources externes sont les polices G
 
 ## Design
 
-Le **thème clair est le défaut**. Il est appliqué avant le premier rendu par un script synchrone placé
-en tête de document, donc sans clignotement. Le thème sombre s'active par le bouton de la barre de
-navigation et le choix est mémorisé dans `localStorage`.
+**Palette unique**, un papier crème chaud. Le book a d'abord eu deux thèmes ; le sombre a été retiré
+pour ne garder qu'une seule identité à maintenir. Le design system correspondant vit sur
+claude.ai/design.
 
 Les couleurs ont été calibrées au calcul, pas à l'œil : **tout texte atteint 4,5:1** et toute bordure
-de composant interactif 3:1, dans les deux thèmes. L'orange de marque `#F16E00` ne dépasse pas 2,67:1
-sur le papier clair, il est donc réservé au décor ; le texte orange passe par `#A84C00`, les boutons et
-les jauges par `#BD5600`.
+de composant interactif 3:1. L'orange de marque `#F16E00` ne dépasse pas 2,67:1 sur ce papier, il
+n'est donc jamais utilisé ; le texte orange passe par `#A84C00`, les boutons, jauges et puces par
+`#BD5600`.
 
 La séparation visuelle vient du remplissage (carte blanche sur papier crème) plutôt que d'un cerclage.
 
@@ -40,6 +40,7 @@ La séparation visuelle vient du remplissage (carte blanche sur papier crème) p
 
 - **Sans JavaScript, tout le contenu reste visible.** Les animations d'apparition ne s'activent que si
   la classe `js` a été posée sur `<html>`, ce que seul le script fait.
+- Aucune bascule de thème : une seule palette, aucun état à mémoriser.
 - Les animations respectent `prefers-reduced-motion`.
 - **Export PDF** : le bouton « Enregistrer ce book en PDF » ouvre la boîte d'impression. La feuille
   `@media print` déplie les onglets, repasse en fond blanc, force un saut de page avant chaque étude de
